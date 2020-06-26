@@ -21,12 +21,8 @@ import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
 import com.ps.dnpapp.Model.MainActivity;
 import com.ps.dnpapp.R;
-
 import java.util.HashMap;
-
 import java.util.Map;
-
-
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnRegistrar;

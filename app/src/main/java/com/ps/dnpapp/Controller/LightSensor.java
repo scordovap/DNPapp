@@ -1,8 +1,6 @@
 package com.ps.dnpapp.Controller;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,12 +8,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.ps.dnpapp.R;
 
-public class UsuarioActivity extends AppCompatActivity {
+public class LightSensor extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private SensorEventListener lightEventListener;
@@ -24,28 +21,8 @@ public class UsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuario);
         root = findViewById(R.id.root);
-
-        Button btnCamera=(Button) findViewById(R.id.camara);
-        Button btnGps=(Button) findViewById(R.id.gps);
-
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent int1=new Intent(view.getContext(), CameraActivity.class);
-                startActivityForResult(int1,0);
-            }
-        });
-        btnGps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent int1=new Intent(view.getContext(), GPSActivity.class);
-                startActivityForResult(int1,0);
-            }
-        });
-
-
+        setContentView(R.layout.activity_usuario);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
@@ -84,6 +61,5 @@ public class UsuarioActivity extends AppCompatActivity {
         super.onPause();
         sensorManager.unregisterListener(lightEventListener);
     }
-
 
 }
