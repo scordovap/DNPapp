@@ -1,22 +1,40 @@
 package com.ps.dnpapp.Controller;
 
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends SupportMapFragment implements OnMapReadyCallback {
+public class CentrosActivity extends SupportMapFragment implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     double lat,lon;
+
+    public CentrosActivity(){
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         View view= super.onCreateView(layoutInflater, viewGroup, bundle);
         if(getArguments()!=null){
@@ -29,17 +47,9 @@ public class MapsActivity extends SupportMapFragment implements OnMapReadyCallba
         return  view;
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         LatLng latLng=new LatLng(lat,lon);
         float zoom=17;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));;

@@ -30,13 +30,13 @@ public class SensorMovimiento implements SensorEventListener {
         mLastY = y;
         mLastZ = z;
 
-        Log.d(TAG, "FILTER:" + mHighPassX + "," + mHighPassY + "," + mHighPassZ);
+       // Log.d(TAG, "FILTER:" + mHighPassX + "," + mHighPassY + "," + mHighPassZ);
 
     }
     @SuppressLint("LongLogTag")
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-        Log.d(TAG, "" + sensor.getName());
+       // Log.d(TAG, "" + sensor.getName());
 
     }
 

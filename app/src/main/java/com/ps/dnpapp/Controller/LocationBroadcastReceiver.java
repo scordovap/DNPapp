@@ -6,8 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.ps.dnpapp.R;
 
 
 public class LocationBroadcastReceiver extends BroadcastReceiver {
@@ -16,10 +22,18 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
     public static int UNIQUE_ID = 0;
     public static String LOCATION_CHANGE = "location_changed";
     public static String ACTION = "action";
+    CameraActivity mapFragment;
 
+
+
+    public double latitude, longitude;
 
     public LocationBroadcastReceiver(MainActivityInf mainActivityInf) {
         this.mainActivityInf = mainActivityInf;
+
+    }
+
+    public LocationBroadcastReceiver() {
 
     }
 /*    public LocationBroadcastReceiver() {
@@ -33,8 +47,8 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
 
             String locationChanged = LocationManager.KEY_LOCATION_CHANGED;
             Location location = (Location) intent.getExtras().get(locationChanged);
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
+       latitude = location.getLatitude();
+         longitude = location.getLongitude();
             Log.d(TAG, latitude + "," + longitude);
             mainActivityInf.DisplayLocationChange(latitude + "," + longitude);
 
@@ -47,5 +61,29 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
             //mainActivityInf.DisplayProviderEnable(isEnabled);
 
         }
+    }
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLocalizationActi(CameraActivity cameraActivity) {
+        this.mapFragment=cameraActivity;
+
+    }
+    private void mapa(double latitude, double longitude) {
+        CentrosActivity fragment=new CentrosActivity();
+        Bundle bundle=new Bundle();
+        bundle.putDouble("lat",new Double(latitude));
+        bundle.putDouble("lon",new Double(longitude));
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager=getMapFragment().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.mapaLoca,fragment,null);
+        fragmentTransaction.commit();
+
     }
 }
