@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
@@ -16,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ps.dnpapp.R;
 
 
-public class LocationBroadcastReceiver extends BroadcastReceiver {
+public class LocationBroadcastReceiver1 extends BroadcastReceiver {
     private String TAG = "LocationBroadcastReceiver";
     private MainActivityInf mainActivityInf;
     public static int UNIQUE_ID = 0;
@@ -28,12 +29,12 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
 
     public double latitude, longitude;
 
-    public LocationBroadcastReceiver(MainActivityInf mainActivityInf) {
+    public LocationBroadcastReceiver1(MainActivityInf mainActivityInf) {
         this.mainActivityInf = mainActivityInf;
 
     }
 
-    public LocationBroadcastReceiver() {
+    public LocationBroadcastReceiver1() {
 
     }
 /*    public LocationBroadcastReceiver() {
@@ -74,16 +75,4 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
         this.mapFragment=cameraActivity;
 
     }
-    private void mapa(double latitude, double longitude) {
-        CentrosActivity fragment=new CentrosActivity();
-        Bundle bundle=new Bundle();
-        bundle.putDouble("lat",new Double(latitude));
-        bundle.putDouble("lon",new Double(longitude));
-        fragment.setArguments(bundle);
-        FragmentManager fragmentManager=getMapFragment().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.mapaLoca,fragment,null);
-        fragmentTransaction.commit();
-
-    }
-}
+ }

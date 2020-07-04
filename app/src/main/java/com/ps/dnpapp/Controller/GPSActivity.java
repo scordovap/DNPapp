@@ -14,17 +14,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.Serializable;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ps.dnpapp.Controller.GPS.Localization;
 import com.ps.dnpapp.R;
 
 public class GPSActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private LocationBroadcastReceiver broadcastReceiver;
+    private LocationBroadcastReceiver1 broadcastReceiver;
     private TextView txtLocation;
     private TextView txtProvider;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -36,7 +35,7 @@ public class GPSActivity extends AppCompatActivity {
         setContentView(R.layout.activity_g_p_s);
 
 
-        broadcastReceiver = new LocationBroadcastReceiver(mainActivityInf2);
+        broadcastReceiver = new LocationBroadcastReceiver1(mainActivityInf2);
 
         checkLocationPermission();
 

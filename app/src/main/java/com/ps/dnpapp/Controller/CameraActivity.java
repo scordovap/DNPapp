@@ -1,21 +1,20 @@
 package com.ps.dnpapp.Controller;
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.provider.MediaStore;
-import android.provider.Settings;
-import android.provider.Telephony;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -23,38 +22,72 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.MapFragment;
+import com.ps.dnpapp.Controller.GPS.FragmentMaps;
+import com.ps.dnpapp.Controller.GPS.GPS_Service;
+import com.ps.dnpapp.Controller.GPS.Localization;
 import com.ps.dnpapp.R;
-
-import java.io.IOException;
-import java.util.List;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = "Magnetic";
-    private Location location;
-    MapFragment mapFragment;
-    private LocationManager locationManager;
+    Localization puntos;
+    private GPSActivity gpsActivity;
     private ImageView mImageView;
     private TextView mLocationTextView;
-float positionX,positionY,positionZ;
+    private static final long MIN_TIME=10000;
+    float positionX,positionY,positionZ;
+    private ProgressDialog progressDialog;
     private SensorManager senSensorManager;
     private Sensor senAccelerometer, senMagnometrico;
     private SensorEventListener sensorEventListener;
     private float a = 0.8f;
+    private MainActivityInf mainActivityInf;
     private float mHighPassX, mHighPassY, mHighPassZ;
     private float mLastX, mLastY, mLastZ;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    LocationBroadcastReceiver datos=new LocationBroadcastReceiver();
+    private BroadcastReceiver broadcastReceiver;
+    FragmentMaps mapFragment;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(broadcastReceiver == null){
+            broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+
+                    Double lat= (Double) intent.getExtras().get("lat");
+                    Double lon= (Double) intent.getExtras().get("lon");
+                    puntos.setLatitude(lat);
+                    puntos.setLongitude(lon);
+
+                    mLocationTextView.setText("\n" +lat+" "+lon);
+
+                }
+            };
+        }
+        registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(broadcastReceiver != null){
+            unregisterReceiver(broadcastReceiver);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mapFragment = new MapFragment();
-
+        mapFragment = new FragmentMaps();
+        puntos=new Localization();
+        puntos.setLocalizationActi(this);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senMagnometrico = senSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -65,43 +98,39 @@ float positionX,positionY,positionZ;
         mImageView = findViewById(R.id.iv_image);
         mLocationTextView = findViewById(R.id.locacion);
 
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
 
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,},1000);
 
+        }
 
     }
 
     public void takeAPicture(View view) {
         Log.d("TAKE", "takeAPicture");
-        iniciarLocalización();
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
-    private void iniciarLocalización() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        LocationBroadcastReceiver local = new LocationBroadcastReceiver();
-        local.setLocalizationActi(this);
-        final boolean gpsenable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!gpsenable) {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, 0, local);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, 0, local);
+    public void Location(View view){
+        Intent i =new Intent(getApplicationContext(), GPS_Service.class);
+        startService(i);
+        Log.d("Get", "GetLocation");
+        /*progressDialog=new ProgressDialog(this);
+
+        progressDialog . setMessage ( "Loading ..." ); // Configuración del mensaje
+        progressDialog . setTitle ( " ProgressDialog " ); // Establecer título
+
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(true);*/
+
+
 
 
     }
@@ -113,7 +142,7 @@ float positionX,positionY,positionZ;
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(bitmap);
-            mLocationTextView.setText(datos.getLatitude()+"   "+datos.getLongitude());
+
         }
     }
 
@@ -196,4 +225,30 @@ float positionX,positionY,positionZ;
         return a * (filtered + current - last);
 
     }
+
+
+    private boolean runtime_permissions() {
+        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},100);
+
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100){
+            if( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+
+            }else {
+                runtime_permissions();
+            }
+        }
+    }
+
+
 }

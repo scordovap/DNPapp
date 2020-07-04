@@ -11,7 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Looper;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -73,8 +72,8 @@ public class LocationIntentServiceBroadcast extends Service implements LocationL
             Log.d(TAG, "location started");
         }
 
-        Intent intent2 = new Intent(LocationBroadcastReceiver.ACTION);
-        intent2.putExtra(LocationBroadcastReceiver.LOCATION_CHANGE, "hhhhhhhh");
+        Intent intent2 = new Intent(LocationBroadcastReceiver1.ACTION);
+        intent2.putExtra(LocationBroadcastReceiver1.LOCATION_CHANGE, "hhhhhhhh");
         sendBroadcast(intent2);
 
         return START_STICKY;
