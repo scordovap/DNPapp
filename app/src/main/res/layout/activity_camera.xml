@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/locacion"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
+        android:layout_height="34dp"
         android:gravity="center_horizontal"
         android:onClick="Location"
         android:text="Pulsa"
@@ -28,9 +28,8 @@
     <LinearLayout
         android:id="@+id/mapaLoca"
         android:layout_width="match_parent"
-        android:layout_height="336dp"
+        android:layout_height="434dp"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        ></LinearLayout>
+        android:orientation="vertical"></LinearLayout>
 
 </LinearLayout>

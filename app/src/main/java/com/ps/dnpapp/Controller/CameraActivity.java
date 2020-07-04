@@ -53,6 +53,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private BroadcastReceiver broadcastReceiver;
     FragmentMaps mapFragment;
+    Double lat,lon;
     @Override
     protected void onResume() {
         super.onResume();
@@ -61,13 +62,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                 @Override
                 public void onReceive(Context context, Intent intent) {
 
-                    Double lat= (Double) intent.getExtras().get("lat");
-                    Double lon= (Double) intent.getExtras().get("lon");
+                    lat= (Double) intent.getExtras().get("lat");
+                    lon= (Double) intent.getExtras().get("lon");
                     puntos.setLatitude(lat);
                     puntos.setLongitude(lon);
-
+                    puntos.mapa(lat,lon);
                     mLocationTextView.setText("\n" +lat+" "+lon);
-
                 }
             };
         }
@@ -110,7 +110,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
     public void takeAPicture(View view) {
         Log.d("TAKE", "takeAPicture");
-
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);

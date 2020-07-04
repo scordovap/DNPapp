@@ -29,7 +29,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
 
-               <activity android:name=".Controller.GPSActivity" />
+        <activity android:name=".Controller.GPSActivity" />
         <activity android:name=".Controller.CameraActivity" />
         <activity android:name=".Controller.UsuarioActivity" />
         <activity android:name=".Controller.RegisterActivity" />
@@ -47,7 +47,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyD0pQmnERAa39GaGA9ryziVUM0EAkJv1hw" />
 
         <receiver
             android:name=".Controller.LocationBroadcastReceiver1"

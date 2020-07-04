@@ -18,7 +18,7 @@ import com.ps.dnpapp.Controller.MainActivityInf;
 import com.ps.dnpapp.R;
 
 
-public class Localization {
+public class Localization{
     public double latitude, longitude;
     CameraActivity mapFragment;
 
@@ -47,7 +47,7 @@ public class Localization {
         return mapFragment;
     }
 
-      private void mapa(double latitude, double longitude) {
+      public void mapa(double latitude, double longitude) {
         FragmentMaps fragment=new FragmentMaps();
         Bundle bundle=new Bundle();
         bundle.putDouble("lat",new Double(latitude));
@@ -59,5 +59,6 @@ public class Localization {
         fragmentTransaction.commit();
 
     }
+
 
 }
