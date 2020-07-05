@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller;
+package com.ps.dnpapp.Controller.GPS;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -11,8 +11,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.provider.MediaStore;
 
@@ -27,16 +25,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.maps.MapFragment;
-import com.ps.dnpapp.Controller.GPS.FragmentMaps;
-import com.ps.dnpapp.Controller.GPS.GPS_Service;
-import com.ps.dnpapp.Controller.GPS.Localization;
+import com.ps.dnpapp.Controller.MainActivityInf;
 import com.ps.dnpapp.R;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = "Magnetic";
     Localization puntos;
-    private GPSActivity gpsActivity;
     private ImageView mImageView;
     private TextView mLocationTextView;
     private static final long MIN_TIME=10000;

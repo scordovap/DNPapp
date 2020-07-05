@@ -1,20 +1,10 @@
 package com.ps.dnpapp.Controller.GPS;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.ps.dnpapp.Controller.CameraActivity;
-import com.ps.dnpapp.Controller.MainActivityInf;
 import com.ps.dnpapp.R;
 
 

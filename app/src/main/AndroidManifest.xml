@@ -29,8 +29,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
 
-        <activity android:name=".Controller.GPSActivity" />
-        <activity android:name=".Controller.CameraActivity" />
+        <activity android:name=".Controller.GPS.CameraActivity" />
         <activity android:name=".Controller.UsuarioActivity" />
         <activity android:name=".Controller.RegisterActivity" />
         <activity android:name=".Controller.LoginActivity" />
@@ -49,30 +48,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD0pQmnERAa39GaGA9ryziVUM0EAkJv1hw" />
 
-        <receiver
-            android:name=".Controller.LocationBroadcastReceiver1"
-            android:exported="true"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-
-                <!-- <action android:name="android.location.LocationManager.KEY_LOCATION_CHANGED" /> -->
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.location.LocationManager.KEY_LOCATION_CHANGED" />
-            </intent-filter>
-        </receiver>
-
         <service android:name=".Controller.GPS.GPS_Service"/>
-        <service
-            android:name=".Controller.LocationService"
-            android:exported="false" />
-        <service
-            android:name=".Controller.LocationIntentService"
-            android:exported="false" />
-        <service
-            android:name=".Controller.LocationIntentServiceBroadcast"
-            android:exported="false" />
+        <service android:name=".Controller.LightSensor.ServiceLight"/>
     </application>
 
 </manifest>

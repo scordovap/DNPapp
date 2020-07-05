@@ -2,33 +2,25 @@ package com.ps.dnpapp.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
+import com.ps.dnpapp.Controller.GPS.CameraActivity;
+import com.ps.dnpapp.Controller.LightSensor.ServiceLight;
 import com.ps.dnpapp.R;
 
 public class UsuarioActivity extends AppCompatActivity {
-    private SensorManager sensorManager;
-    private Sensor lightSensor;
-    private SensorEventListener lightEventListener;
-    private View root;
-    private float valormax;
+    Context thisContex=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
-        root = findViewById(R.id.root);
+
 
         Button btnCamera=(Button) findViewById(R.id.camara);
-        Button btnGps=(Button) findViewById(R.id.gps);
+        Button btnLight=(Button) findViewById(R.id.gps);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,53 +29,12 @@ public class UsuarioActivity extends AppCompatActivity {
                 startActivityForResult(int1,0);
             }
         });
-        btnGps.setOnClickListener(new View.OnClickListener() {
+        btnLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent int1=new Intent(view.getContext(), GPSActivity.class);
-                startActivityForResult(int1,0);
+                startService(new Intent(thisContex, ServiceLight.class));
             }
         });
-
-
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
-        if (lightSensor == null) {
-            Toast.makeText(this, "El dispositivo no tiene sensor de luz!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        valormax = lightSensor.getMaximumRange();
-
-        lightEventListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent sensorEvent) {
-                float value = sensorEvent.values[0];
-                getSupportActionBar().setTitle("Luminosidad : " + value + " lx");
-
-
-                int newValue = (int) (255f * value / valormax);
-                root.setBackgroundColor(Color.rgb(newValue, newValue, newValue));
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int i) {
-
-            }
-        };
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(lightEventListener, lightSensor, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sensorManager.unregisterListener(lightEventListener);
-    }
-
 
 }
