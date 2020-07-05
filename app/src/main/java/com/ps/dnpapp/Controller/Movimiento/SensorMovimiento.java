@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller;
+package com.ps.dnpapp.Controller.Movimiento;
 
 
 import android.annotation.SuppressLint;
@@ -14,6 +14,7 @@ public class SensorMovimiento implements SensorEventListener {
     private float a = 0.8f;
     private float mHighPassX, mHighPassY, mHighPassZ;
     private float mLastX, mLastY, mLastZ;
+    float positionX,positionY,positionZ;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -29,7 +30,6 @@ public class SensorMovimiento implements SensorEventListener {
         mLastX = x;
         mLastY = y;
         mLastZ = z;
-
        // Log.d(TAG, "FILTER:" + mHighPassX + "," + mHighPassY + "," + mHighPassZ);
 
     }

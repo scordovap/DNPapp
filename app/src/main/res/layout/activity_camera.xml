@@ -23,7 +23,7 @@
         android:layout_height="34dp"
         android:gravity="center_horizontal"
         android:onClick="Location"
-        android:text="Pulsa"
+        android:text="Obteniendo Coordenadas"
         android:textAlignment="center" />
 
     <LinearLayout

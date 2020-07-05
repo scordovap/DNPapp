@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller;
+package com.ps.dnpapp.Controller.LightSensor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;

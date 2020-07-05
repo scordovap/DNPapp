@@ -89,9 +89,10 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         puntos=new Localization();
         puntos.setLocalizationActi(this);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senMagnometrico = senSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        senMagnometrico = senSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         senSensorManager.registerListener(this, senMagnometrico , SensorManager.SENSOR_DELAY_NORMAL);
 
         setContentView(R.layout.activity_camera);
@@ -109,6 +110,9 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     }
 
     public void takeAPicture(View view) {
+        Intent i =new Intent(getApplicationContext(), GPS_Service.class);
+        startService(i);
+        Log.d("Get", "GetLocation");
         Log.d("TAKE", "takeAPicture");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -117,9 +121,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     }
 
     public void Location(View view){
-        Intent i =new Intent(getApplicationContext(), GPS_Service.class);
-        startService(i);
-        Log.d("Get", "GetLocation");
+
         /*progressDialog=new ProgressDialog(this);
 
         progressDialog . setMessage ( "Loading ..." ); // Configuración del mensaje
@@ -156,21 +158,21 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             positionZ = sensorEvent.values[2];
 
             if(positionX<-5 ){
-               // Log.w(TAG, "Telefono horizontal derecha");
+                Log.w(TAG, "Telefono horizontal derecha");
             }else if(positionX > 5 ){
-              //  Log.w(TAG, "Telefono horizontal izquierda");
+               Log.w(TAG, "Telefono horizontal izquierda");
             }else if(positionY < -5){
-               // Log.w(TAG, "Telefono vertical boca abajo");
+                Log.w(TAG, "Telefono vertical boca abajo");
             }else if(positionY> 5){
-               // Log.w(TAG, "Telefono por defecto");;
+                Log.w(TAG, "Telefono por defecto");;
             }else if(positionZ > 5){
-                //Log.w(TAG, "Telefono frontal arriba");
+               Log.w(TAG, "Telefono frontal arriba");
             }else if(positionZ < -5){
-               // Log.w(TAG, "Telefono frontal abajo");
+              Log.w(TAG, "Telefono frontal abajo");
             }
         }
         if ((positionX < 0.5 && positionX > -0.5) && (positionY < 0.5 && positionY > -0.5)){
-           // System.out.println("El telefono esta en una superficie");
+            System.out.println("El telefono esta en una superficie");
         }
         //System.out.println(x+"->"+"----- "+y+"->"+"-----"+z+"->");
 
