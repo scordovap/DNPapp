@@ -25,7 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ps.dnpapp.Controller.LightSensor.LightSensor;
 import com.ps.dnpapp.Controller.MainActivityInf;
+import com.ps.dnpapp.Controller.Movimiento.SensorMovimiento;
 import com.ps.dnpapp.R;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
@@ -48,6 +50,8 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private BroadcastReceiver broadcastReceiver;
     FragmentMaps mapFragment;
     Double lat,lon;
+    LightSensor lightSensor;
+    SensorMovimiento sensorMovimiento;
     @Override
     protected void onResume() {
         super.onResume();
@@ -90,6 +94,11 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         senSensorManager.registerListener(this, senMagnometrico , SensorManager.SENSOR_DELAY_NORMAL);
 
         setContentView(R.layout.activity_camera);
+        lightSensor= new LightSensor(this);
+        setContentView(lightSensor);
+        sensorMovimiento= new SensorMovimiento(this);
+        setContentView(sensorMovimiento);
+        setContentView(R.layout.activity_camera);
         mImageView = findViewById(R.id.iv_image);
         mLocationTextView = findViewById(R.id.locacion);
 
@@ -104,6 +113,8 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     }
 
     public void takeAPicture(View view) {
+
+
         Intent i =new Intent(getApplicationContext(), GPS_Service.class);
         startService(i);
         Log.d("Get", "GetLocation");
