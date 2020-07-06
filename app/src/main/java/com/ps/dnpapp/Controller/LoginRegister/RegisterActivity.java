@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller;
+package com.ps.dnpapp.Controller.LoginRegister;
 
 
 import androidx.annotation.NonNull;
@@ -9,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
+import com.ps.dnpapp.Controller.UsuarioActivity;
 import com.ps.dnpapp.Model.MainActivity;
 import com.ps.dnpapp.R;
 import java.util.HashMap;

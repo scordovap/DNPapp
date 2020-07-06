@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller;
+package com.ps.dnpapp.Controller.LoginRegister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

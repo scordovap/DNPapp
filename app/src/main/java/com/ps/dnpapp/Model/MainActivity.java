@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.ps.dnpapp.Controller.*;
+import com.ps.dnpapp.Controller.LoginRegister.LoginActivity;
+import com.ps.dnpapp.Controller.LoginRegister.RegisterActivity;
 import com.ps.dnpapp.R;
 ;
 

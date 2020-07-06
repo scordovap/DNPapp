@@ -8,19 +8,8 @@
     tools:context=".Controller.UsuarioActivity">
 
     <Button
-        android:id="@+id/sensor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sensor" />
-
-    <Button
         android:id="@+id/camara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="camara" />
-    <Button
-        android:id="@+id/gps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="gps" />
 </LinearLayout>

@@ -31,8 +31,8 @@
 
         <activity android:name=".Controller.GPS.CameraActivity" />
         <activity android:name=".Controller.UsuarioActivity" />
-        <activity android:name=".Controller.RegisterActivity" />
-        <activity android:name=".Controller.LoginActivity" />
+        <activity android:name=".Controller.LoginRegister.RegisterActivity" />
+        <activity android:name=".Controller.LoginRegister.LoginActivity" />
         <activity android:name=".Model.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +49,6 @@
             android:value="AIzaSyD0pQmnERAa39GaGA9ryziVUM0EAkJv1hw" />
 
         <service android:name=".Controller.GPS.GPS_Service"/>
-        <service android:name=".Controller.LightSensor.ServiceLight"/>
     </application>
 
 </manifest>

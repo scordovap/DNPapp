@@ -1,10 +1,8 @@
 package com.ps.dnpapp.Controller.GPS;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.ps.dnpapp.R;
 
 

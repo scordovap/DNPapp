@@ -18,7 +18,7 @@ public class SensorMovimiento extends View implements SensorEventListener {
     private float a = 0.8f;
     private float mHighPassX, mHighPassY, mHighPassZ;
     private float mLastX, mLastY, mLastZ;
-    float positionX,positionY,positionZ;
+
 
     public SensorMovimiento(Context context) {
         super(context);
@@ -34,14 +34,13 @@ public class SensorMovimiento extends View implements SensorEventListener {
         x = sensorEvent.values[0];
         y = sensorEvent.values[1];
         z = sensorEvent.values[2];
-        Log.d(TAG, "CURRENT:" + x + "," + y + "," + z);
         mHighPassX = highPass(x, mLastX, mHighPassX);
         mHighPassY = highPass(y, mLastY, mHighPassY);
         mHighPassZ = highPass(z, mLastZ, mHighPassZ);
         mLastX = x;
         mLastY = y;
         mLastZ = z;
-       Log.d(TAG, "FILTER:" + mHighPassX + "," + mHighPassY + "," + mHighPassZ);
+       Log.d(TAG, "FILTER MOVIMIENTO:" + mHighPassX + "," + mHighPassY + "," + mHighPassZ);
 
     }
     @SuppressLint("LongLogTag")
@@ -51,7 +50,6 @@ public class SensorMovimiento extends View implements SensorEventListener {
 
     }
 
-    // simple high-pass filter
     float highPass(float current, float last, float filtered) {
         return a * (filtered + current - last);
 
