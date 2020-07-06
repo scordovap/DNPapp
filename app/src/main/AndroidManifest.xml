@@ -49,6 +49,15 @@
             android:value="AIzaSyD0pQmnERAa39GaGA9ryziVUM0EAkJv1hw" />
 
         <service android:name=".Controller.GPS.GPS_Service"/>
+        <service
+            android:name=".Controller.BroadcastGPS.LocationService"
+            android:exported="false" />
+        <service
+            android:name=".Controller.BroadcastGPS.LocationIntentService"
+            android:exported="false" />
+        <service
+            android:name=".Controller.BroadcastGPS.LocationIntentServiceBroadcast"
+            android:exported="false" />
     </application>
 
 </manifest>

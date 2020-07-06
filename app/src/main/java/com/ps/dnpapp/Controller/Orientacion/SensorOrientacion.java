@@ -60,5 +60,4 @@ public class SensorOrientacion extends View implements SensorEventListener {
         //Log.d(TAG, "" + sensor.getName());
     }
 
-
 }

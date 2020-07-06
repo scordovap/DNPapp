@@ -21,12 +21,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.ps.dnpapp.Controller.BroadcastGPS.GPSActivity;
 import com.ps.dnpapp.Controller.LightSensor.LightSensor;
 import com.ps.dnpapp.Controller.Movimiento.SensorMovimiento;
 import com.ps.dnpapp.Controller.Orientacion.SensorOrientacion;
 import com.ps.dnpapp.R;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
+    GPSActivity gpsActivity;
     Localization puntos;
     private ImageView mImageView;
     private TextView mLocationTextView;
@@ -44,17 +47,25 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-
                     lat= (Double) intent.getExtras().get("lat");
                     lon= (Double) intent.getExtras().get("lon");
                     puntos.setLatitude(lat);
                     puntos.setLongitude(lon);
                     puntos.mapa(lat,lon);
-                    mLocationTextView.setText("\n" +lat+" "+lon);
+                   mLocationTextView.setText("\n" +lat+" "+lon);
                 }
             };
+
         }
         registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(broadcastReceiver != null){
+            unregisterReceiver(broadcastReceiver);
+        }
     }
 
     @Override
@@ -72,12 +83,16 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         puntos=new Localization();
         puntos.setLocalizationActi(this);
         setContentView(R.layout.activity_camera);
+        //lightSensor
         lightSensor= new LightSensor(this);
         setContentView(lightSensor);
+        //SensorAcelerometro
         sensorMovimiento= new SensorMovimiento(this);
         setContentView(sensorMovimiento);
+        //SensorMagnetico
         sensorOrientacion= new SensorOrientacion(this);
         setContentView(sensorOrientacion);
+
         setContentView(R.layout.activity_camera);
         mImageView = findViewById(R.id.iv_image);
         mLocationTextView = findViewById(R.id.locacion);
