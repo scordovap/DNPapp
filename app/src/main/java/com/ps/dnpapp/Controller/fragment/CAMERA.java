@@ -26,7 +26,7 @@ public class CAMERA extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_camera,container,false);
+        View v = inflater.inflate(R.layout.fragment_camera1,container,false);
         // Inflate the layout for this fragment
         btnCamera = (Button) v.findViewById(R.id.tomarFoto);
         btnCamera.setOnClickListener(new View.OnClickListener() {
