@@ -2,13 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ps.dnpapp.Controller.fragment.STATUS">
+    tools:context="com.ps.dnpapp.Controller.fragment.CAMERA">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/tab_three"
-        android:gravity="center"/>
+        android:text="@string/tab_two"
+        android:gravity="center" />
+    <Button
+        android:id="@+id/tomarFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fotos"
+        />
 
 </FrameLayout>

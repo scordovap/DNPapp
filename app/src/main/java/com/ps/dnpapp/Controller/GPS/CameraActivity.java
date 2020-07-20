@@ -23,9 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.ps.dnpapp.Controller.BroadcastGPS.GPSActivity;
-import com.ps.dnpapp.Controller.LightSensor.LightSensor;
-import com.ps.dnpapp.Controller.Movimiento.SensorMovimiento;
-import com.ps.dnpapp.Controller.Orientacion.SensorOrientacion;
+
 import com.ps.dnpapp.R;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
@@ -37,9 +35,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     private BroadcastReceiver broadcastReceiver;
     FragmentMaps mapFragment;
     Double lat,lon;
-    LightSensor lightSensor;
-    SensorOrientacion sensorOrientacion;
-    SensorMovimiento sensorMovimiento;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -68,13 +64,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(broadcastReceiver != null){
-            unregisterReceiver(broadcastReceiver);
-        }
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +73,7 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         puntos=new Localization();
         puntos.setLocalizationActi(this);
         setContentView(R.layout.activity_camera);
-        //lightSensor
-        lightSensor= new LightSensor(this);
-        setContentView(lightSensor);
-        //SensorAcelerometro
-        sensorMovimiento= new SensorMovimiento(this);
-        setContentView(sensorMovimiento);
-        //SensorMagnetico
-        sensorOrientacion= new SensorOrientacion(this);
-        setContentView(sensorOrientacion);
+
 
         setContentView(R.layout.activity_camera);
         mImageView = findViewById(R.id.iv_image);

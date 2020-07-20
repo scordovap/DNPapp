@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ps.dnpapp">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".Model.Sensores"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -28,18 +27,19 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
         <activity android:name=".Controller.GPS.CameraActivity" />
         <activity android:name=".Controller.UsuarioActivity">
-        </activity>
-        <activity android:name=".Controller.LoginRegister.RegisterActivity" />
-        <activity android:name=".Controller.LoginRegister.LoginActivity" />
-        <activity android:name=".Model.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".Controller.LoginRegister.RegisterActivity" />
+        <activity android:name=".Controller.LoginRegister.LoginActivity" />
+        <activity android:name=".Model.MainActivity">
+
         </activity>
 
         <meta-data
@@ -49,7 +49,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD0pQmnERAa39GaGA9ryziVUM0EAkJv1hw" />
 
-        <service android:name=".Controller.GPS.GPS_Service"/>
+        <service android:name=".Controller.GPS.GPS_Service" />
         <service
             android:name=".Controller.BroadcastGPS.LocationService"
             android:exported="false" />

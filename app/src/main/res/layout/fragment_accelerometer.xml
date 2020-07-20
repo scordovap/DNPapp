@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Controller.Sensores.Accelerometer">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shadowColor="#FFFFFF"
+        android:text="ACCELEROMETER"
+        android:textColor="#CA1818"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/acelero"
+        android:layout_width="399dp"
+        android:layout_height="match_parent"
+        android:background="#FF9800"
+        android:text="@string/hello_blank_fragment"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>
