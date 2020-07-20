@@ -5,15 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.Log;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.ps.dnpapp.Controller.GPS.CameraActivity;
-import com.ps.dnpapp.Controller.GPS.FragmentMaps;
-import com.ps.dnpapp.R;
 
 
 public class LocationBroadcastReceiver extends BroadcastReceiver {
@@ -47,14 +41,10 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
 
             String locationChanged = LocationManager.KEY_LOCATION_CHANGED;
             Location location = (Location) intent.getExtras().get(locationChanged);
-       latitude = location.getLatitude();
-         longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
             Log.d(TAG, latitude + "," + longitude);
             mainActivityInf.DisplayLocationChange(latitude + "," + longitude);
-            Intent i = new Intent("location_update");
-            i.putExtra("lon", location.getLongitude());
-            i.putExtra("lat", location.getLatitude());
-            context.sendBroadcast(i);
 
         }
 
@@ -66,11 +56,16 @@ public class LocationBroadcastReceiver extends BroadcastReceiver {
 
         }
     }
+    public double getLatitude() {
+        return latitude;
+    }
 
+    public double getLongitude() {
+        return longitude;
+    }
 
     public void setLocalizationActi(CameraActivity cameraActivity) {
         this.mapFragment=cameraActivity;
 
     }
-
  }

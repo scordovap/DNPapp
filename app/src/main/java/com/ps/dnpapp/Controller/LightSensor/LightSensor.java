@@ -28,7 +28,7 @@ public class LightSensor extends View implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         float value = sensorEvent.values[0];
-        Log.d("Luminosidad", "hola "+value);
+        Log.d("Luminosidad", "sensor valor "+value);
         int newValue = (int) (255f * value / valormax);
     }
 

@@ -30,7 +30,8 @@
         -->
 
         <activity android:name=".Controller.GPS.CameraActivity" />
-        <activity android:name=".Controller.UsuarioActivity" />
+        <activity android:name=".Controller.UsuarioActivity">
+        </activity>
         <activity android:name=".Controller.LoginRegister.RegisterActivity" />
         <activity android:name=".Controller.LoginRegister.LoginActivity" />
         <activity android:name=".Model.MainActivity">
