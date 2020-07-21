@@ -10,11 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
-
 import com.ps.dnpapp.R;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -24,8 +21,6 @@ public class Temperatura extends Fragment implements SensorEventListener {
     TextView textView;
     SensorManager sensorManager;
     Sensor tempSensor;
-    public Boolean estaDisponible;
-
     public static DecimalFormat DECIMAL_FORMATTER;
     private static final String TAG = "OrientacionListener";
     float positionX, positionY, positionZ;
@@ -45,8 +40,6 @@ public class Temperatura extends Fragment implements SensorEventListener {
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         tempSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         sensorManager.registerListener(this, tempSensor, SensorManager.SENSOR_DELAY_FASTEST);
-
-
     }
 
     @Override
@@ -58,20 +51,15 @@ public class Temperatura extends Fragment implements SensorEventListener {
         // Inflate the layout for this fragment
         return v;
     }
-
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         String txt;
         txt = "\n" + event.values[0] + " ºC";
         textView.setText(txt);
     }
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
-
     public void onResume() {
         super.onResume();
     }
