@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <Button
+        android:id="@+id/takePicture"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:text="Tomar Foto" />
 
-        <Button
-            android:id="@+id/takePicture"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:text="Tomar Foto" />
-
-        <Button
-            android:id="@+id/galeria"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:text="Galeria" />
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_image"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="214dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/locacion"
