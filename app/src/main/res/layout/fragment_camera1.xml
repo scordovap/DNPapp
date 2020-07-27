@@ -8,8 +8,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/tab_two"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="@string/tab_two" />
+
     <Button
         android:id="@+id/tomarFoto"
         android:layout_width="match_parent"

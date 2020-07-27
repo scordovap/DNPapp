@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.ps.dnpapp.Controller.Activities.Camara;
 import com.ps.dnpapp.Controller.GPS.CameraActivity;
 import com.ps.dnpapp.R;
 
@@ -32,7 +33,7 @@ public class CAMERA extends Fragment {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                Intent intent = new Intent(getActivity(), Camara.class);
                 startActivity(intent);
             }
         });

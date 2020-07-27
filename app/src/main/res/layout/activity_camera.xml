@@ -5,11 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tomar Foto"
-        android:onClick="takeAPicture"/>
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/takePicture"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="Tomar Foto" />
+
+        <Button
+            android:id="@+id/galeria"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="Galeria" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_image"

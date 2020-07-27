@@ -1,40 +1,65 @@
 package com.ps.dnpapp.Controller.GPS;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ps.dnpapp.Controller.BroadcastGPS.GPSActivity;
 
 import com.ps.dnpapp.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
+
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
+    private static final int CAMERA_REQUEST_CODE = 102;
     GPSActivity gpsActivity;
     Localization puntos;
     private ImageView mImageView;
     private TextView mLocationTextView;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private BroadcastReceiver broadcastReceiver;
+    FirebaseStorage storage;
+    Uri filepath;
+    Bitmap bitmap;
+    StorageReference storageReference;
     FragmentMaps mapFragment;
     Double lat,lon;
+    String currentPhotoPath;
 
     @Override
     protected void onResume() {
@@ -74,6 +99,8 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         puntos.setLocalizationActi(this);
         setContentView(R.layout.activity_camera);
 
+        storage=FirebaseStorage.getInstance();
+        storageReference=storage.getReference();
 
         setContentView(R.layout.activity_camera);
         mImageView = findViewById(R.id.iv_image);
@@ -101,11 +128,51 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
             Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
+            bitmap= (Bitmap) extras.get("data");
             mImageView.setImageBitmap(bitmap);
+            File f =new File(currentPhotoPath);
+            mImageView.setImageURI(Uri.fromFile(f));
+            Intent mediaScanIntent=new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri contenctUri=Uri.fromFile(f);
+            mediaScanIntent.setData(contenctUri);
+            this.sendBroadcast(mediaScanIntent);
+            upload(f.getName(),contenctUri);
+
+         }
+        if(requestCode==CAMERA_REQUEST_CODE){
+             if(resultCode== Activity.RESULT_OK){
+
+             }
         }
-    }
+     }
+
+
+    private void upload(String name, Uri contenctUri) {
+
+            final StorageReference ref=storageReference.child("/userImages"+ UUID.randomUUID().toString());
+            ref.putFile(contenctUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.d("tag", "OnSuccess"+uri.toString());
+                        }
+
+                    });
+                    Toast.makeText(CameraActivity.this,"Upload  ",Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(CameraActivity.this,"Error",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
 
     private boolean runtime_permissions() {
         if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){

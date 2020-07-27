@@ -26,7 +26,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnRegistrar;
-    private EditText textEmail, textPassword,textUsuario;
+    private EditText textEmail, textPassword,textUsuario,txtOcupación;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         textEmail=(EditText)findViewById(R.id.mailRegistro);
         textUsuario=(EditText)findViewById(R.id.usuarioRegistro);
+        txtOcupación=(EditText)findViewById(R.id.ocupación);
 
         textPassword=(EditText)findViewById(R.id.passwordRegistro);
         btnRegistrar=(Button)findViewById(R.id.RegistrarUsuario);
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String email=textEmail.getText().toString().trim();
         final String usuario=textUsuario.getText().toString().trim();
         final String password=textPassword.getText().toString().trim();
+        final String ocupacion=txtOcupación.getText().toString().trim();
 
         if(password.length()<=6){
             Toast.makeText(this,"Ingresa una contraseña de 6 o más carácteres", Toast.LENGTH_SHORT).show();
@@ -85,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Map<String,Object> mapa=new HashMap();
                             mapa.put("correo",email);
                             mapa.put("usuario",usuario);
+                            mapa.put("ocupación",ocupacion);
                             mapa.put("password",password);
                             String id=mAuth.getCurrentUser().getUid();
 
