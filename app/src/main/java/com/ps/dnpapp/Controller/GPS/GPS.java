@@ -15,7 +15,7 @@ import android.provider.Settings;
 
 import androidx.core.app.ActivityCompat;
 
-public class GPS_Service extends Service {
+public class GPS extends Service {
 
     private LocationListener listener;
     private LocationManager locationManager;

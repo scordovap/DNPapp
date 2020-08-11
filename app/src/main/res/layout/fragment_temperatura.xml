@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.Sensores.Temperatura">
+    tools:context=".Controller.fragment.Sensores.Temperatura">
 
     <!-- TODO: Update blank fragment layout -->
 

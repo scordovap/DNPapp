@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller.Sensores;
+package com.ps.dnpapp.Controller.fragment.Sensores;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

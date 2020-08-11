@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -25,42 +23,45 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.ps.dnpapp.Controller.Activities.Camara;
-import com.ps.dnpapp.Controller.BroadcastGPS.GPSActivity;
 
+import com.ps.dnpapp.Controller.fragment.FragmentMaps;
 import com.ps.dnpapp.R;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CameraActivity extends AppCompatActivity implements SensorEventListener {
     private static final int CAMERA_REQUEST_CODE = 102;
     public static final int CAMERA_PERM_CODE = 101;
     public static final int GALLERY_REQUEST_CODE = 105;
     Button btnCamera;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     Localization puntos;
     StorageReference storageReference;
     private ImageView mImageView;
     private TextView mLocationTextView;
+
+
     private BroadcastReceiver broadcastReceiver;
     FragmentMaps mapFragment;
     Double lat,lon;
@@ -78,7 +79,16 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
                     puntos.setLatitude(lat);
                     puntos.setLongitude(lon);
                     puntos.mapa(lat,lon);
-                   mLocationTextView.setText("\n" +lat+" "+lon);
+                    mLocationTextView.setText("\n" +lat+" "+lon);
+
+                    final String lati=lat.toString();
+                    final String longi=lon.toString();
+                    Map<String,Object> mapa=new HashMap();
+                    mapa.put("latitud",lati);
+                    mapa.put("longitud",longi);
+                    String id=mAuth.getCurrentUser().getUid();
+                    mDatabase.child("Usuarios").child(id).child("fotos").setValue(mapa);
+
                 }
             };
 
@@ -99,21 +109,23 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         mapFragment = new FragmentMaps();
         puntos=new Localization();
         puntos.setLocalizationActi(this);
-
+        Intent i =new Intent(getApplicationContext(), GPS.class);
+        startService(i);
         setContentView(R.layout.activity_camera);
+        mAuth=FirebaseAuth.getInstance();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
         storageReference= FirebaseStorage.getInstance().getReference();
         btnCamera=(Button)findViewById(R.id.takePicture);
         mImageView = findViewById(R.id.iv_image);
-        mLocationTextView = findViewById(R.id.locacion);
+        mLocationTextView = findViewById(R.id.coordenadas);
+
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 askCameraPermissions();
-
             }
         });
-
 
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
@@ -133,15 +145,12 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         }else {
             dispatchTakePictureIntent();
         }
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Intent i =new Intent(getApplicationContext(), GPS_Service.class);
-        startService(i);
+
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 File f = new File(currentPhotoPath);
@@ -175,29 +184,32 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
 
     private void uploadImageToFirebase(String name, Uri contentUri) {
         final StorageReference image = storageReference.child("pictures/" + name);
-        image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
-                    }
-                });
 
-                Toast.makeText(CameraActivity.this, "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CameraActivity.this, "Upload Failled.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(mAuth.getCurrentUser()!=null){
+
+            image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
+                        }
+                    });
+
+                    Toast.makeText(CameraActivity.this, "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(CameraActivity.this, "Upload Failled.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
 
     }
-
-
-
     private String getFileExt(Uri contentUri) {
         ContentResolver c = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -275,7 +287,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
     }
     @Override
     public void onSensorChanged(SensorEvent event) {
-
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

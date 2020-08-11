@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller.adapter;
+package com.ps.dnpapp.Model.Adaptador;
 
 
 

@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller.GPS;
+package com.ps.dnpapp.Controller.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

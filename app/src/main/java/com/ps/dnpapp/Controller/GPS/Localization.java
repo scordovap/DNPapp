@@ -3,6 +3,8 @@ package com.ps.dnpapp.Controller.GPS;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.ps.dnpapp.Controller.fragment.FragmentMaps;
 import com.ps.dnpapp.R;
 
 
@@ -10,11 +12,6 @@ public class Localization{
     public double latitude, longitude;
     CameraActivity mapFragment;
 
-   public Localization(Double lat, Double lon){
-        this.latitude=lat;
-        this.longitude=lon;
-        mapa(latitude,longitude);
-    }
     public Localization(){
 
     }

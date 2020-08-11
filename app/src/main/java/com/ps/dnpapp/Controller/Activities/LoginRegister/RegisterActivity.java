@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller.LoginRegister;
+package com.ps.dnpapp.Controller.Activities.LoginRegister;
 
 
 import androidx.annotation.NonNull;
@@ -18,7 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
-import com.ps.dnpapp.Controller.UsuarioActivity;
+import com.ps.dnpapp.Controller.Activities.UsuarioActivity;
 import com.ps.dnpapp.Model.MainActivity;
 import com.ps.dnpapp.R;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.ps.dnpapp.Controller;
+package com.ps.dnpapp.Controller.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -10,10 +10,10 @@ import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ps.dnpapp.Controller.GPS.CameraActivity;
-import com.ps.dnpapp.Controller.adapter.ViewPagerAdapter;
-import com.ps.dnpapp.Controller.fragment.HOME;
-import com.ps.dnpapp.Controller.fragment.STATUS;
-import com.ps.dnpapp.Controller.fragment.CAMERA;
+import com.ps.dnpapp.Model.Adaptador.ViewPagerAdapter;
+import com.ps.dnpapp.Controller.fragment.Home;
+import com.ps.dnpapp.Controller.fragment.Status;
+import com.ps.dnpapp.Controller.fragment.Camera;
 import com.ps.dnpapp.R;
 
 public class UsuarioActivity extends AppCompatActivity {
@@ -39,9 +39,9 @@ public class UsuarioActivity extends AppCompatActivity {
     }
     private void addTabs(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new HOME(), "HOME");
-        adapter.addFrag(new CAMERA(), "CAMERA");
-        adapter.addFrag(new STATUS(), "SENSOR STATS");
+        adapter.addFrag(new Home(), "Home");
+        adapter.addFrag(new Camera(), "Camera");
+        adapter.addFrag(new Status(), "SENSOR STATS");
         viewPager.setAdapter(adapter);
     }
 

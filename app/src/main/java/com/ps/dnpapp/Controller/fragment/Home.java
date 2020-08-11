@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
-import com.ps.dnpapp.Model.Sensores;
+
+import com.ps.dnpapp.Controller.Activities.Instrucciones;
+import com.ps.dnpapp.Controller.GPS.CameraActivity;
 import com.ps.dnpapp.R;
 
 
-public class STATUS extends Fragment {
+public class Home extends Fragment {
 
-    Button btnSensores;
-    public STATUS() {
+    Button btnInstrucciones;
+    public Home() {
         // Required empty public constructor
     }
 
@@ -25,17 +27,18 @@ public class STATUS extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_stats,container,false);
-        // Inflate the layout for this fragment
-        btnSensores = (Button) v.findViewById(R.id.sensores);
-        btnSensores.setOnClickListener(new View.OnClickListener() {
+        View v = inflater.inflate(R.layout.fragment_home1,container,false);
+        btnInstrucciones = (Button) v.findViewById(R.id.instruccionesbutton);
+        btnInstrucciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), Sensores.class);
+                Intent intent = new Intent(getActivity(), Instrucciones.class);
                 startActivity(intent);
             }
         });
+
+
+        // Inflate the layout for this fragment
         return v;
     }
 

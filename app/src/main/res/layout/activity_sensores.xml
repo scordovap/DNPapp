@@ -15,13 +15,13 @@
 
         <fragment
             android:id="@+id/fragment"
-            android:name="com.ps.dnpapp.Controller.Sensores.Accelerometer"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.Accelerometer"
             android:layout_width="187dp"
             android:layout_height="269dp" />
 
         <fragment
             android:id="@+id/fra1"
-            android:name="com.ps.dnpapp.Controller.Sensores.Temperatura"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.Temperatura"
             android:layout_width="202dp"
             android:layout_height="269dp" />
 
@@ -33,14 +33,14 @@
 
         <fragment
             android:id="@+id/fragmento3"
-            android:name="com.ps.dnpapp.Controller.Sensores.OrientationSensor"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.OrientationSensor"
             android:layout_width="185dp"
             android:layout_height="294dp" />
 
         <fragment
             android:id="@+id/fragmento4"
 
-            android:name="com.ps.dnpapp.Controller.Sensores.LightSensor"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.LightSensor"
             android:layout_width="207dp"
             android:layout_height="295dp" />
 
