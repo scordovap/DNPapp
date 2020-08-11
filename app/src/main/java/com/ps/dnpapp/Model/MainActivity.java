@@ -10,9 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.ps.dnpapp.Controller.*;
+import com.ps.dnpapp.Controller.Activities.UsuarioActivity;
+import com.ps.dnpapp.Controller.Activities.LoginRegister.LoginActivity;
+import com.ps.dnpapp.Controller.Activities.LoginRegister.RegisterActivity;
 import com.ps.dnpapp.R;
-;
 
 public class MainActivity extends AppCompatActivity {
 

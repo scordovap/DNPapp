@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Model.Sensores">
+
+
+    <LinearLayout
+        android:layout_width="424dp"
+        android:layout_height="267dp"
+        android:orientation="horizontal">
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.Accelerometer"
+            android:layout_width="187dp"
+            android:layout_height="269dp" />
+
+        <fragment
+            android:id="@+id/fra1"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.Temperatura"
+            android:layout_width="202dp"
+            android:layout_height="269dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/fragmento3"
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.OrientationSensor"
+            android:layout_width="185dp"
+            android:layout_height="294dp" />
+
+        <fragment
+            android:id="@+id/fragmento4"
+
+            android:name="com.ps.dnpapp.Controller.fragment.Sensores.LightSensor"
+            android:layout_width="207dp"
+            android:layout_height="295dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

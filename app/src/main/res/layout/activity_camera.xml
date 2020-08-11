@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/takePicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tomar Foto" />
+
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="214dp"
+        android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/locacion"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:gravity="center_horizontal"
+        android:text="Obteniendo Coordenadas"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:id="@+id/mapaLoca"
+        android:layout_width="match_parent"
+        android:layout_height="444dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"></LinearLayout>
+
+</LinearLayout>
