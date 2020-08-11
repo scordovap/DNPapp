@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_dark_default"
+    tools:context=".Controller.Activities.InfoAplication">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Acerca de Nosotros"
+            android:textColor="#FF0000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="168dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/information" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="223dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center_horizontal"
+
+            android:text="TakingPhotoGPSLT LITE” es una aplicación móvil para tomar fotografias turisticas, potente, confiable y fácil de usar, incluye diversas funciones como la de GPS, la cual indicará en su cámara un mapa del lugar donde está situado, además esta aplicación hace uso de los sensores de luz y de temperatura para captar toda la información del ambiente del lugar, temperatura y luz ambiental, brindando así al usuario toda la información del lugar donde se quiera tomar la foto mediante los sensores."
+            android:textSize="16sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
