@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.Activities.Instrucciones"></activity>
+        <activity android:name=".Controller.Activities.InfoAplication"></activity>
+        <activity android:name=".Controller.Activities.Instrucciones" />
         <activity android:name=".Model.Sensores" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
